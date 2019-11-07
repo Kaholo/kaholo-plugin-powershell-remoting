@@ -1,0 +1,42 @@
+{
+  "name": "PowerShell Remoting",
+  "type": "executer",
+  "exposeRoute": false,
+  "execProgram": "node",
+  "main": "app.js",
+  "version": "1.0.0",
+  "methods": [
+    {
+      "name": "execCommand",
+      "viewName": "Execute remote command",
+      "params": [
+        {
+          "name": "host",
+          "viewName": "Hostname",
+          "type": "string"
+        },
+        {
+          "name": "port",
+          "viewName": "Port",
+          "type": "string"
+        },
+        {
+          "name": "username",
+          "viewName": "Username",
+          "type": "string"
+        },
+        {
+          "name": "password",
+          "viewName": "Password",
+          "type": "vault"
+        },
+        {
+          "name": "command",
+          "viewName": "Command",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "imgUrl": "logo.png"
+}
