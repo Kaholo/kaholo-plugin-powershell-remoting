@@ -21,6 +21,22 @@ function constructReceiveOutputRequest(_params) {
     return js2xmlparser.parse('s:Envelope', res);
 }
 
+module.exports.generatePowershellCommand = function(_params) {
+    var args = [];
+    args.unshift(
+        'powershell.exe',
+        '-NoProfile',
+        '-NonInteractive',
+        '-NoLogo',
+        '-ExecutionPolicy', 'Bypass',
+        '-InputFormat', 'Text',
+        '-Command', '"& {',
+        _params.command,
+        '}"'
+    );
+    return args.join(' ');
+}
+
 module.exports.getResult = async function (_params) {
     var req = constructReceiveOutputRequest(_params);
 
@@ -38,10 +54,10 @@ module.exports.getResult = async function (_params) {
         if (result['s:Envelope']['s:Body'][0]['rsp:ReceiveResponse'][0]['rsp:Stream']) {
             for (let stream of result['s:Envelope']['s:Body'][0]['rsp:ReceiveResponse'][0]['rsp:Stream']) {
                 if (stream['$'].Name == 'stdout' && !stream['$'].hasOwnProperty('End')) {
-                    cmdResult.stdout += new Buffer(stream['_'], 'base64').toString('ascii');
+                    cmdResult.stdout += Buffer.from(stream['_'], 'base64').toString('ascii');
                 }
                 if (stream['$'].Name == 'stderr' && !stream['$'].hasOwnProperty('End')) {
-                    cmdResult.stderr += new Buffer(stream['_'], 'base64').toString('ascii');
+                    cmdResult.stderr += Buffer.from(stream['_'], 'base64').toString('ascii');
                 }
             }
         }

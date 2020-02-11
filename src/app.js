@@ -18,11 +18,13 @@ async function execCommand(action, settings) {
     params['shellId'] = shellId;
 
     params['command'] = action.params.command;
+    if(action.params.isPowershell)
+        params.command = helpers.generatePowershellCommand(params);
     
     var commandId = await winrm.command.doExecuteCommand(params);
-
+    
     params['commandId'] = commandId;
-    var result = await helpers.getResult(params);
+    var result = await helpers.getResult(params, action.params.isPowershell);
 
     await winrm.shell.doDeleteShell(params);
 
