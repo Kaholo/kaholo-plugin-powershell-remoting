@@ -4,7 +4,7 @@
   "exposeRoute": false,
   "execProgram": "node",
   "main": "app.js",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "methods": [
     {
       "name": "execCommand",
@@ -43,5 +43,6 @@
       ]
     }
   ],
-  "imgUrl": "logo.png"
+  "imgUrl": "logo.png",
+  "category": "CORE"
 }
