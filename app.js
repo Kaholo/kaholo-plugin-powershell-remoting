@@ -1,36 +1,37 @@
-var winrm = require('nodejs-winrm');
-var helpers = require('./helpers');
+const winrm = require("nodejs-winrm");
+const helpers = require("./helpers");
 
-async function execCommand(action, settings) {
-    const username = action.params.username;
-    const password = action.params.password;
-    const port = action.params.port || 5985;
-    const host = action.params.host;
+async function execCommand(action) {
+  const { username } = action.params;
+  const { password } = action.params;
+  const port = action.params.port || 5985;
+  const { host } = action.params;
 
-    var auth = 'Basic ' + Buffer.from(username + ':' + password, 'utf8').toString('base64');
-    var params = {
-        host: host,
-        port: port,
-        path: '/wsman',
-    };
-    params['auth'] = auth;
-    var shellId = await winrm.shell.doCreateShell(params);
-    params['shellId'] = shellId;
+  const auth = `Basic ${Buffer.from(`${username}:${password}`, "utf8").toString("base64")}`;
+  const params = {
+    host,
+    port,
+    path: "/wsman",
+  };
+  params.auth = auth;
+  const shellId = await winrm.shell.doCreateShell(params);
+  params.shellId = shellId;
 
-    params['command'] = action.params.command;
-    if(action.params.isPowershell)
-        params.command = helpers.generatePowershellCommand(params);
-    
-    var commandId = await winrm.command.doExecuteCommand(params);
-    
-    params['commandId'] = commandId;
-    var result = await helpers.getResult(params, action.params.isPowershell);
+  params.command = action.params.command;
+  if (action.params.isPowershell) {
+    params.command = helpers.generatePowershellCommand(params);
+  }
 
-    await winrm.shell.doDeleteShell(params);
+  const commandId = await winrm.command.doExecuteCommand(params);
 
-    return result;
+  params.commandId = commandId;
+  const result = await helpers.getResult(params, action.params.isPowershell);
+
+  await winrm.shell.doDeleteShell(params);
+
+  return result;
 }
 
 module.exports = {
-    execCommand: execCommand
+  execCommand,
 };
