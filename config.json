@@ -1,5 +1,6 @@
 {
-  "name": "PowerShell Remoting",
+  "name": "powershell",
+  "viewName": "Powershell Remoting",
   "type": "executer",
   "exposeRoute": false,
   "execProgram": "node",
