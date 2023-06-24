@@ -5,6 +5,19 @@
   "execProgram": "node",
   "main": "app.js",
   "version": "1.1.2",
+  "imgUrl": "logo.png",
+  "description": "Microsoft task automation and configuration management shell",
+  "category": "Basic Tools",
+  "keywords": [
+    "scripting",
+    "microsoft",
+    "windows",
+    "dotnet",
+    "shell",
+    "commandline",
+    ".net",
+    "remoting"
+   ],
   "methods": [
     {
       "name": "execCommand",
@@ -42,7 +55,5 @@
         }
       ]
     }
-  ],
-  "imgUrl": "logo.png",
-  "category": "CORE"
+  ]
 }
