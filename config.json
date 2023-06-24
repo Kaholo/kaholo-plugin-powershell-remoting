@@ -1,13 +1,13 @@
 {
   "name": "powershell",
-  "viewName": "Powershell Remoting",
+  "viewName": "PowerShell Remoting",
   "type": "executer",
   "exposeRoute": false,
   "execProgram": "node",
   "main": "app.js",
   "version": "1.1.2",
   "imgUrl": "logo.png",
-  "description": "Microsoft task automation and configuration management shell",
+  "description": "Windows task automation and configuration management",
   "category": "Basic Tools",
   "keywords": [
     "scripting",
@@ -17,7 +17,8 @@
     "shell",
     "commandline",
     ".net",
-    "remoting"
+    "remoting",
+    "winrm"
    ],
   "methods": [
     {
@@ -27,32 +28,47 @@
         {
           "name": "host",
           "viewName": "Hostname",
-          "type": "string"
+          "description": "Hostname or IP address of Windows server",
+          "type": "string",
+          "required": true,
+          "placeholder": "12.13.14.15"
         },
         {
           "name": "port",
           "viewName": "Port",
-          "type": "string"
+          "description": "Port, if other than standard 5985 is used",
+          "type": "string",
+          "placeholder": "5985"
         },
         {
           "name": "username",
           "viewName": "Username",
-          "type": "string"
+          "description": "Windows user name",
+          "type": "string",
+          "required": true,
+          "placeholder": "Administrator"
         },
         {
           "name": "password",
           "viewName": "Password",
-          "type": "vault"
+          "description": "Windows password",
+          "type": "vault",
+          "required": true
         },
         {
           "name": "command",
           "viewName": "Command",
-          "type": "string"
+          "description": "Command to execute",
+          "type": "string",
+          "placeholder": "dir",
+          "required": true
         },
         {
           "name": "isPowershell",
-          "viewName": "Is Powershell",
-          "type": "boolean"
+          "viewName": "Use PowerShell Exe",
+          "description": "Enable to run the command using powershell.exe -NoProfile -NonInteractive -NoLogo -ExecutionPolicy Bypass -InputFormat Text -Command \"& { <the command> }\", instead of normal WinRM",
+          "type": "boolean",
+          "default": false
         }
       ]
     }
