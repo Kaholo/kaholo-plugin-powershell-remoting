@@ -1,15 +1,20 @@
 {
   "name": "kaholo-plugin-powershell-remoting",
-  "version": "1.0.0",
   "description": "PowerShell Remoting plugin for Kaholo",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix"
   },
   "author": "Kaholo team (Roy Talyosef)",
   "license": "ISC",
   "dependencies": {
     "js2xmlparser": "4.0.0",
     "nodejs-winrm": "1.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.43.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
   }
 }

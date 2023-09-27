@@ -1,0 +1,76 @@
+{
+  "name": "powershell",
+  "viewName": "PowerShell Remoting",
+  "type": "executer",
+  "exposeRoute": false,
+  "execProgram": "node",
+  "main": "app.js",
+  "version": "1.1.3",
+  "imgUrl": "logo.png",
+  "description": "Windows task automation and configuration management",
+  "category": "Basic Tools",
+  "keywords": [
+    "scripting",
+    "microsoft",
+    "windows",
+    "dotnet",
+    "shell",
+    "commandline",
+    ".net",
+    "remoting",
+    "winrm"
+   ],
+  "methods": [
+    {
+      "name": "execCommand",
+      "viewName": "Execute remote command",
+      "params": [
+        {
+          "name": "host",
+          "viewName": "Hostname",
+          "description": "Hostname or IP address of Windows server",
+          "type": "string",
+          "required": true,
+          "placeholder": "12.13.14.15"
+        },
+        {
+          "name": "port",
+          "viewName": "Port",
+          "description": "Port, if other than standard 5985 is used",
+          "type": "string",
+          "placeholder": "5985"
+        },
+        {
+          "name": "username",
+          "viewName": "Username",
+          "description": "Windows user name",
+          "type": "string",
+          "required": true,
+          "placeholder": "Administrator"
+        },
+        {
+          "name": "password",
+          "viewName": "Password",
+          "description": "Windows password",
+          "type": "vault",
+          "required": true
+        },
+        {
+          "name": "command",
+          "viewName": "Command",
+          "description": "Command to execute",
+          "type": "string",
+          "placeholder": "dir",
+          "required": true
+        },
+        {
+          "name": "isPowershell",
+          "viewName": "Use PowerShell Exe",
+          "description": "Enable to run the command using powershell.exe -NoProfile -NonInteractive -NoLogo -ExecutionPolicy Bypass -InputFormat Text -Command \"& { <the command> }\", instead of normal WinRM",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    }
+  ]
+}
