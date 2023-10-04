@@ -24,6 +24,20 @@
     "authId": "WindowsUsernamePassword",
     "params": [
       {
+        "name": "host",
+        "viewName": "Hostname",
+        "description": "Hostname or IP address of Windows server",
+        "type": "string",
+        "placeholder": "12.13.14.15"
+      },
+      {
+        "name": "port",
+        "viewName": "Port",
+        "description": "Port, if other than standard 5985 is used",
+        "type": "string",
+        "placeholder": "5985"
+      },
+      {
         "name": "username",
         "viewName": "Username",
         "description": "Windows user name",
