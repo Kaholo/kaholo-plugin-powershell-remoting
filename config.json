@@ -19,7 +19,41 @@
     ".net",
     "remoting",
     "winrm"
-   ],
+  ],
+  "auth": {
+    "authId": "WindowsUsernamePassword",
+    "params": [
+      {
+        "name": "host",
+        "viewName": "Hostname",
+        "description": "Hostname or IP address of Windows server",
+        "type": "string",
+        "placeholder": "12.13.14.15"
+      },
+      {
+        "name": "port",
+        "viewName": "Port",
+        "description": "Port, if other than standard 5985 is used",
+        "type": "string",
+        "placeholder": "5985"
+      },
+      {
+        "name": "username",
+        "viewName": "Username",
+        "description": "Windows user name",
+        "type": "string",
+        "required": true,
+        "placeholder": "Administrator"
+      },
+      {
+        "name": "password",
+        "viewName": "Password",
+        "description": "Windows password",
+        "type": "vault",
+        "required": true
+      }
+    ]
+  },
   "methods": [
     {
       "name": "execCommand",
@@ -30,7 +64,7 @@
           "viewName": "Hostname",
           "description": "Hostname or IP address of Windows server",
           "type": "string",
-          "required": true,
+          "required": false,
           "placeholder": "12.13.14.15"
         },
         {
@@ -39,21 +73,6 @@
           "description": "Port, if other than standard 5985 is used",
           "type": "string",
           "placeholder": "5985"
-        },
-        {
-          "name": "username",
-          "viewName": "Username",
-          "description": "Windows user name",
-          "type": "string",
-          "required": true,
-          "placeholder": "Administrator"
-        },
-        {
-          "name": "password",
-          "viewName": "Password",
-          "description": "Windows password",
-          "type": "vault",
-          "required": true
         },
         {
           "name": "command",
