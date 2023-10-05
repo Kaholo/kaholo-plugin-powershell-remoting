@@ -64,7 +64,7 @@
           "viewName": "Hostname",
           "description": "Hostname or IP address of Windows server",
           "type": "string",
-          "required": true,
+          "required": false,
           "placeholder": "12.13.14.15"
         },
         {
