@@ -47,25 +47,35 @@ async function getResult(_params) {
     winrmHttpReq.sendHttp(req, _params.host, _params.port, _params.path, _params.auth)
   );
 
-  if (result["s:Envelope"]["s:Body"][0]["s:Fault"]) {
-    return new Error(result["s:Envelope"]["s:Body"][0]["s:Fault"][0]["s:Code"][0]["s:Subcode"][0]["s:Value"][0]);
+  const body = result["s:Envelope"]["s:Body"][0];
+  const fault = body["s:Fault"];
+  if (fault) {
+    return new Error(fault[0]["s:Code"][0]["s:Subcode"][0]["s:Value"][0]);
   }
+
   const cmdResult = {
     stdout: "",
     stderr: "",
     exitCode: parseInt(
-      result["s:Envelope"]["s:Body"][0]["rsp:ReceiveResponse"][0]["rsp:CommandState"][0]["rsp:ExitCode"][0],
+      body["rsp:ReceiveResponse"][0]["rsp:CommandState"][0]["rsp:ExitCode"][0],
       10,
     ),
   };
 
-  if (result["s:Envelope"]["s:Body"][0]["rsp:ReceiveResponse"][0]["rsp:Stream"]) {
-    result["s:Envelope"]["s:Body"][0]["rsp:ReceiveResponse"][0]["rsp:Stream"].forEach((stream) => {
+  const rspStream = body["rsp:ReceiveResponse"][0]["rsp:Stream"];
+  if (rspStream) {
+    rspStream.forEach((stream) => {
       if (stream.$.Name === "stdout" && !Reflect.has(stream.$, "End")) {
-        cmdResult.stdout += Buffer.from(stream._, "base64").toString("ascii");
+        const bufferString = Buffer.from(stream._, "base64").toString("utf-8");
+
+        process.stdout.write(bufferString); // Live Logging
+        cmdResult.stdout += bufferString;
       }
       if (stream.$.Name === "stderr" && !Reflect.has(stream.$, "End")) {
-        cmdResult.stderr += Buffer.from(stream._, "base64").toString("ascii");
+        const bufferString = Buffer.from(stream._, "base64").toString("utf-8");
+
+        process.stderr.write(bufferString); // Live Logging
+        cmdResult.stderr += bufferString;
       }
     });
   }

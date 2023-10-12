@@ -7,26 +7,23 @@ async function execCommand(action) {
   const port = action.params.port || 5985;
   const { host } = action.params;
 
-  const auth = `Basic ${Buffer.from(`${username}:${password}`, "utf8").toString("base64")}`;
+  const encodedCredentials = Buffer.from(`${username}:${password}`, "utf8").toString("base64");
   const params = {
     host,
     port,
     path: "/wsman",
+    auth: `Basic ${encodedCredentials}`,
   };
-  params.auth = auth;
-  const shellId = await winrm.shell.doCreateShell(params);
-  params.shellId = shellId;
 
+  params.shellId = await winrm.shell.doCreateShell(params);
   params.command = action.params.command;
+
   if (action.params.isPowershell) {
     params.command = helpers.generatePowershellCommand(params);
   }
 
-  const commandId = await winrm.command.doExecuteCommand(params);
-
-  params.commandId = commandId;
+  params.commandId = await winrm.command.doExecuteCommand(params);
   const result = await helpers.getResult(params, action.params.isPowershell);
-
   await winrm.shell.doDeleteShell(params);
 
   return result;
