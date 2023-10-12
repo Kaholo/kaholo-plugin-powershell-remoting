@@ -23,10 +23,8 @@ async function execCommand(action) {
   }
 
   params.commandId = await winrm.command.doExecuteCommand(params);
-  const result = await helpers.getResult(params, action.params.isPowershell);
+  await helpers.getResult(params, action.params.isPowershell);
   await winrm.shell.doDeleteShell(params);
-
-  return result;
 }
 
 module.exports = {
