@@ -81,7 +81,7 @@ async function getResult(_params) {
   }
 
   if (cmdResult.exitCode === 0) {
-    return cmdResult;
+    return "";
   }
 
   return Promise.reject(cmdResult);
