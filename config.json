@@ -60,7 +60,7 @@
       "viewName": "Execute remote command",
       "params": [
         {
-          "name": "host",
+          "name": "actionHost",
           "viewName": "Hostname",
           "description": "Hostname or IP address of Windows server",
           "type": "string",
@@ -68,7 +68,7 @@
           "placeholder": "12.13.14.15"
         },
         {
-          "name": "port",
+          "name": "actionPort",
           "viewName": "Port",
           "description": "Port, if other than standard 5985 is used",
           "type": "string",

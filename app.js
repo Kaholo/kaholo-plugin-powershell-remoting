@@ -4,8 +4,8 @@ const helpers = require("./helpers");
 async function execCommand(action) {
   const { username } = action.params;
   const { password } = action.params;
-  const port = action.params.port || 5985;
-  const { host } = action.params;
+  const port = action.params.actionPort || action.params.port || 5985;
+  const host = action.params.actionHost || action.params.host || "127.0.0.1";
 
   const encodedCredentials = Buffer.from(`${username}:${password}`, "utf8").toString("base64");
   const params = {
