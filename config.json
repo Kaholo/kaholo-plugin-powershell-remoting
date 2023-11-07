@@ -49,6 +49,7 @@
         "name": "password",
         "viewName": "Password",
         "description": "Windows password",
+        "placeholder": "please select one",
         "type": "vault",
         "required": true
       }
